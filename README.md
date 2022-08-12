@@ -4,6 +4,6 @@
 - **[AG Game](https://ag-gaming.herokuapp.com)**
 
 
-Model: https://github.com/huynhspm/ProjectDL
+    Model: https://github.com/huynhspm/ProjectDL
 
 
