@@ -1,4 +1,3 @@
-change name to Deep Learning
 # **Some Projects about Deep Learning**
 
 ## 1. **Image Classification**
