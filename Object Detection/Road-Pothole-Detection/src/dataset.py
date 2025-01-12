@@ -1,14 +1,13 @@
 import torch
 import numpy as np
 import cv2
-import os
 import glob
 import pandas as pd
 
 from torch.utils.data import Dataset, DataLoader
 from config import TRAIN_DIR, BATCH_SIZE, OUT_DIR
 from utils import collate_fn, get_train_transform, get_valid_transform
-from utils import visualize_sample, show_tranformed_image
+from utils import visualize_sample, show_transformed_image
 
 class PotHoleDataset(Dataset):
     def __init__(self, dataframe, image_dir, transforms=None):
@@ -52,7 +51,7 @@ class PotHoleDataset(Dataset):
         if self.transforms:
             sample = self.transforms(image = image,
                                      bboxes = target['boxes'],
-                                     labels = labels)
+                                     labels = labels.tolist())
             image = sample['image']
             target['boxes'] = torch.Tensor(sample['bboxes'])
 

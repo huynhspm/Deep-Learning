@@ -21,7 +21,9 @@ print(f"Validation instances: {len(test_images)}")
 # initialize tqdm progress bar
 prog_bar = tqdm(test_images, total=len(test_images))
 
-cnt = 20
+out_dir = "../test_prediction"
+os.makedirs(out_dir, exist_ok=True)
+
 for i, image in enumerate(prog_bar):
     orig_image = cv2.imread(f'{TEST_DIR}/{test_images[i]}')
     image = cv2.cvtColor(orig_image, cv2.COLOR_BGR2RGB).astype(np.float32)
@@ -35,7 +37,7 @@ for i, image in enumerate(prog_bar):
     image = torch.unsqueeze(image, 0)
     with torch.no_grad():
         outputs = model(image)
-    
+        
     # load all detection to CPU for further operations
     outputs = [{k: v.to('cpu') for k, v in t.items()} for t in outputs]
     # carry further only if there are detected boxes
@@ -48,12 +50,9 @@ for i, image in enumerate(prog_bar):
 
         # draw the bounding boxes and write the class name on top of it
         orig_image = draw_boxes(boxes, labels, orig_image)
-        cv2.imwrite(f"../test_prediction/{test_images[i]}", orig_image)
-        cv2.waitKey(0)
+    cv2.imwrite(f"{out_dir}/{test_images[i]}", orig_image)
     print()
     print(f"Image {i+1} done...")
     print('-'*50)    
-    cnt -= 1
-    if cnt == 0: break
 print('TEST PREDICTIONS COMPLETE')
 cv2.destroyAllWindows()

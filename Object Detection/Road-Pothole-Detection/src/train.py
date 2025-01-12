@@ -1,4 +1,4 @@
-import torch
+import os
 import matplotlib.pyplot as plt
 import time
 
@@ -10,7 +10,8 @@ from dataset import train_dataloader
 
 if VISUALIZE_TRANSFORMED_IMAGES:
     show_transformed_image()
-    
+
+os.makedirs(OUT_DIR, exist_ok=True)
 for epoch in range(NUM_EPOCHS):
     print(f"\nEPOCH {epoch+1} of {NUM_EPOCHS}")
     start = time.time()
